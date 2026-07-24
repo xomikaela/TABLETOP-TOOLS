@@ -6,21 +6,212 @@
 // function addTwoNums(num1: Number, num2) {
 //    const sum = num1 + num2;
 //    return sum;
-//}
 
-// addTwoNums(3, 5);
+/**
+ * A wizard can cast a spell if they have the spell prepared.
+ * They can also cast it from a scroll even if it is not prepared.
+  @param {boolean} isSpellPrepared - whether the spell is prepared
+  @param {boolean} hasScroll - whether the wizard has a scroll of the spell
+  @returns {boolean} whether the wizard can cast the spell
+ */
+function canCastSpell(isSpellPrepared, hasScroll) {
+  // TODO
+  if (!isSpellPrepared && !hasScroll) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
-let code1;
-code1 = 7 + 3;
+/**
+ * A creature is hidden from an observer if it is actively hiding
+ * or if the observer is not aware of it.
+ * @param {boolean} hiding - whether the creature is actively hiding
+ * @param {boolean} aware - whether the observer is aware of the creature
+ * @returns {boolean} whether the creature is hidden from the observer
+ */
+function isHidden(hiding, aware) {
+  // TODO
+  if (hiding && !aware) {
+    return true;
+  } else if (!hiding && !aware) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
-let code2 = 160 / 2 - 40;
+/**
+ * A strike hits if the attack value is greater than or equal
+ * to the target's armor class (AC).
+ * @param {number} attack - the attack value
+ * @param {number} ac - the armor class to beat
+ * @returns {boolean} whether the strike hits
+ */
+function doesStrikeHit(attack, ac) {
+  // TODO
+  if (attack >= ac) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
-let code3 = (29 % 10) + 30;
+/**
+ * A strike is a critical hit if the attack value is at least
+ * 10 greater than the target's armor class (AC).
+ * @param {number} attack - the attack value
+ * @param {number} ac - the armor class to beat
+ * @returns {boolean} whether the strike is a critical hit
+ */
+function doesStrikeCrit(attack, ac) {
+  // TODO
+  if (attack - 10 >= ac) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
-let message = "the vault has been secured. the combination is: ";
+/**
+ * A creature can restore hit points (HP) by healing,
+ * but its total HP cannot exceed its maximum HP.
+ * @param {number} maxHp - maximum hit points
+ * @param {number} currentHp - current hit points
+ * @param {number} healAmount - amount to heal
+ * @returns {number} total hit points after healing
+ */
+function heal(maxHp, currentHp, healAmount) {
+  // TODO
+  if (currentHp < maxHp && healAmount <= maxHp - currentHp) {
+    return healAmount;
+  } else {
+    return maxHp - currentHp;
+  }
+}
 
-let codeA = code1 + "-" + code2 + "-" + code3;
+/**
+ * When a character uses a skill they have proficiency in,
+ * they get to add a bonus to their attempt.
+ *
+ * | Rank       | Bonus     |
+ * | ---        | ---       |
+ * | untrained  | 0         |
+ * | trained    | level + 2 |
+ * | expert     | level + 4 |
+ * | master     | level + 6 |
+ * | legendary  | level + 8 |
+ *
+ * @param {number} level - level of the character
+ * @param {string} rank - character's proficiency rank
+ * @returns {number} the character's proficiency bonus
+ */
+function getProficiencyBonus(level, rank) {
+  // TODO
 
-let codeB = `${code1}-${code2}-${code3}`;
+  if (rank === "trained") {
+    return level + 2;
+  } else if (rank === "expert") {
+    return level + 4;
+  } else if (rank === "master") {
+    return level + 6;
+  } else if (rank === "legendary") {
+    return level + 8;
+  } else {
+    return 0;
+  }
+}
 
-console.log(message + codeA + " and " + codeB);
+/**
+ * A creature can get a bonus to its armor class (AC) by taking cover.
+ * If the creature is behind an obstacle, it gets a +2 bonus to its AC,
+ * unless the creature is actively taking cover, in which case it gets
+ * a +4 bonus to its AC.
+ * A creature that is not behind an obstacle gets no bonus to its AC.
+ * @param {boolean} behindObstacle - whether the creature is behind an obstacle
+ * @param {boolean} takingCover - whether the creature is actively taking cover
+ * @returns {number} the cover bonus to AC
+ */
+function getCoverBonus(behindObstacle, takingCover) {
+  // TODO
+  if (behindObstacle && takingCover) {
+    return 4;
+  } else if (behindObstacle && !takingCover) {
+    return 2;
+  } else {
+    return 0;
+  }
+}
+
+/**
+ * A creature's current hit points (HP) is reduced by taking damage.
+ * If the damage taken is greater than or equal to double its maximum
+ * HP, the creature dies instantly.
+ * A creature's HP cannot go below 0 unless it is dead.
+ * @param {number} maxHp - maximum hit points
+ * @param {number} currentHp - current hit points
+ * @param {number} damage - damage taken
+ * @returns {number} -1 if the creature dies instantly
+ * @returns {number} 0 if the creature's HP drops to 0 or below
+ * @returns {number} the creature's remaining HP after taking damage
+ */
+function getRemainingHp(maxHp, currentHp, damage) {
+  // TODO
+  if (damage === 2 * maxHp) {
+    return -1;
+  } else if (damage >= currentHp) {
+    return 0;
+  } else {
+    return currentHp - damage;
+  }
+}
+
+/**
+ * All creatures can see in bright light.
+ * Creatures with low-light vision can also see in dim light.
+ * Creatures with darkvision can see in all light conditions.
+ * @param {string} light - light condition: "bright", "dim", or "dark"
+ * @param {string} vision - vision type: "average", "low-light", or "dark"
+ * @returns {boolean} whether the creature can see
+ */
+function canSee(light, vision) {
+  // TODO
+  if (light === "dark" && vision === "darkvision") {
+    return true;
+  } else if (
+    (light === "dim" && vision === "low-light") ||
+    vision === "darkvision"
+  ) {
+    return true;
+  } else if (
+    (light === "bright" && vision === "average") ||
+    vision === "low-light" ||
+    vision === "darkvision"
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+/**
+ * A strike deals damage if it hits, unless the strike is a critical hit,
+ * in which case it deals double damage.
+ * If the strike does not hit, it deals 0 damage.
+ * Hint: you can use the functions you wrote above :)
+ * @param {number} attack - the attack value
+ * @param {number} ac - the armor class to beat
+ * @param {number} damage - damage on a normal hit
+ * @returns {number} damage dealt by the strike
+ */
+function getStrikeDamage(attack, ac, damage) {
+  // TODO
+  const hit = doesStrikeHit(attack, ac);
+  const crithit = doesStrikeCrit(attack, ac);
+  if (crithit === true && hit === true) {
+    return damage * 2;
+  } else if (hit === true) {
+    return damage;
+  } else {
+    return 0;
+  }
+}
